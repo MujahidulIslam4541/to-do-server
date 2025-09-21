@@ -12,7 +12,7 @@ app.use(express.urlencoded())
 connectDb()
 
 app.get("/",(req,res)=>{
-    res.send("my server runnig")
+    res.send("my server runnigfgbfhfhgtgggjg")
 })
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
