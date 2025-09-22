@@ -36,4 +36,33 @@ const getItems = async (req, res) => {
   }
 };
 
-module.exports = { createItem ,getItems};
+const updateItem = async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const { title, isCompleted } = req.body;
+    const updatedItem = await ToDo.findByIdAndUpdate(
+      itemId,
+      { title, isCompleted },
+      { new: true }
+    );
+    if (!updatedItem) {
+      return res.status(404).json({
+        status: 404,
+        message: "To-Do item not found",
+      });
+    }
+    res.status(200).json({
+      status: 200,
+      message: "To-Do item updated successfully",
+      data: updatedItem,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { createItem, getItems, updateItem };
