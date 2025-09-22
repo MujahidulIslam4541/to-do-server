@@ -2,13 +2,13 @@ require("dotenv").config()
 const express = require("express")
 const connectDb = require("./config/db")
 const app = express()
-const PORT=process.eventNames.PORT
-// middelware
+const PORT=process.env.PORT;
+// middleware
 app.use(express.json())
 app.use(express.urlencoded())
 
 
-//  connectdb
+//  connectDb
 connectDb()
 
 app.get("/",(req,res)=>{
