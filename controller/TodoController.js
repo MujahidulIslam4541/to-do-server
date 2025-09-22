@@ -19,4 +19,21 @@ const createItem = async (req, res) => {
   }
 };
 
-module.exports = { createItem };
+const getItems = async (req, res) => {
+  try {
+    const items = await ToDo.find();
+    res.status(200).json({
+      status: 200,
+      message: "To-Do items retrieved successfully",
+      data: items,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { createItem ,getItems};
