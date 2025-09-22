@@ -9,7 +9,7 @@ const ToDoSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+}, { timestamps: true });
 
 const ToDo = mongoose.model("ToDo", ToDoSchema);
 module.exports = ToDo;
