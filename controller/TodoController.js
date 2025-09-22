@@ -21,7 +21,7 @@ const createItem = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
-    const items = await ToDo.find();
+    const items = await ToDo.find({ isDeleted: false });
     res.status(200).json({
       status: 200,
       message: "To-Do items retrieved successfully",
@@ -65,4 +65,32 @@ const updateItem = async (req, res) => {
   }
 };
 
-module.exports = { createItem, getItems, updateItem };
+const deleteItem = async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const item = await ToDo.findOne({ _id: itemId });
+
+    if (!item) {
+      return res.status(404).json({
+        status: 404,
+        message: "To-Do item not found",
+      });
+    }
+    
+    item.isDeleted = true;
+    await item.save();
+
+    res.status(200).json({
+      status: 200,
+      message: "To-Do item deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { createItem, getItems, updateItem, deleteItem };
