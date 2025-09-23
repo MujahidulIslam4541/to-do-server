@@ -66,6 +66,7 @@ const updateItem = async (req, res) => {
 };
 
 const deleteItem = async (req, res) => {
+  
   try {
     const itemId = req.params.id;
     const item = await ToDo.findOne({ _id: itemId });
